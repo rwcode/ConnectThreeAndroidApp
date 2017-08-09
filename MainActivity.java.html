@@ -1,0 +1,123 @@
+<html>
+<head>
+<title>MainActivity.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.ln { color: #999999; font-weight: normal; font-style: normal; }
+.s0 { color: rgb(0,0,128); font-weight: bold; }
+.s1 { color: rgb(0,0,0); }
+.s2 { color: rgb(128,128,128); font-style: italic; }
+.s3 { color: rgb(0,0,255); }
+.s4 { color: rgb(0,128,0); font-weight: bold; }
+</style>
+</head>
+<BODY BGCOLOR="#ffffff">
+<TABLE CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#c0c0c0" >
+<TR><TD><CENTER>
+<FONT FACE="Arial, Helvetica" COLOR="#000000">
+MainActivity.java</FONT>
+</center></TD></TR></TABLE>
+<pre>
+<span class="s0">package </span><span class="s1">ca.rwang.connectthree; 
+ 
+</span><span class="s0">import </span><span class="s1">android.support.v7.app.AppCompatActivity; 
+</span><span class="s0">import </span><span class="s1">android.os.Bundle; 
+</span><span class="s0">import </span><span class="s1">android.view.View; 
+</span><span class="s0">import </span><span class="s1">android.widget.GridLayout; 
+</span><span class="s0">import </span><span class="s1">android.widget.ImageView; 
+</span><span class="s0">import </span><span class="s1">android.widget.LinearLayout; 
+</span><span class="s0">import </span><span class="s1">android.widget.TextView; 
+ 
+</span><span class="s0">import </span><span class="s1">org.w3c.dom.Text; 
+ 
+</span><span class="s0">public class </span><span class="s1">MainActivity </span><span class="s0">extends </span><span class="s1">AppCompatActivity { 
+ 
+    </span><span class="s2">//0 is blue</span><span class="s1"> 
+    </span><span class="s2">//1 is purple</span><span class="s1"> 
+    </span><span class="s0">int </span><span class="s1">activePlayer = </span><span class="s3">0</span><span class="s1">; 
+    </span><span class="s0">int </span><span class="s1">[] gameState = {</span><span class="s3">2</span><span class="s1">,</span><span class="s3">2</span><span class="s1">,</span><span class="s3">2</span><span class="s1">,</span><span class="s3">2</span><span class="s1">,</span><span class="s3">2</span><span class="s1">,</span><span class="s3">2</span><span class="s1">,</span><span class="s3">2</span><span class="s1">,</span><span class="s3">2</span><span class="s1">,</span><span class="s3">2</span><span class="s1">}; 
+    </span><span class="s0">int </span><span class="s1">[][] winningPositions = {{</span><span class="s3">0</span><span class="s1">,</span><span class="s3">1</span><span class="s1">,</span><span class="s3">2</span><span class="s1">},{</span><span class="s3">3</span><span class="s1">,</span><span class="s3">4</span><span class="s1">,</span><span class="s3">5</span><span class="s1">},{</span><span class="s3">6</span><span class="s1">,</span><span class="s3">7</span><span class="s1">,</span><span class="s3">8</span><span class="s1">} ,{</span><span class="s3">0</span><span class="s1">,</span><span class="s3">3</span><span class="s1">,</span><span class="s3">6</span><span class="s1">},{</span><span class="s3">2</span><span class="s1">,</span><span class="s3">5</span><span class="s1">,</span><span class="s3">8</span><span class="s1">},{</span><span class="s3">0</span><span class="s1">,</span><span class="s3">4</span><span class="s1">,</span><span class="s3">8</span><span class="s1">},{</span><span class="s3">2</span><span class="s1">,</span><span class="s3">4</span><span class="s1">,</span><span class="s3">6</span><span class="s1">}}; 
+    </span><span class="s0">boolean </span><span class="s1">active = </span><span class="s0">true</span><span class="s1">; 
+ 
+ 
+    </span><span class="s0">public void </span><span class="s1">dropIn(View view){ 
+ 
+        ImageView counter = (ImageView) view; 
+ 
+        </span><span class="s0">int </span><span class="s1">tappedCounter = Integer.parseInt(counter.getTag().toString()); 
+        </span><span class="s0">if </span><span class="s1">(gameState[tappedCounter] == </span><span class="s3">2  </span><span class="s1">&amp;&amp; active == </span><span class="s0">true</span><span class="s1">){ 
+ 
+            counter.setTranslationY(</span><span class="s3">0f</span><span class="s1">); 
+            gameState[tappedCounter] = activePlayer; 
+            </span><span class="s0">if </span><span class="s1">(activePlayer == </span><span class="s3">0</span><span class="s1">){ 
+                counter.setImageResource(R.drawable.blue); 
+                activePlayer = </span><span class="s3">1</span><span class="s1">; 
+            } </span><span class="s0">else </span><span class="s1">{ 
+                counter.setImageResource(R.drawable.purple); 
+                activePlayer = </span><span class="s3">0</span><span class="s1">; 
+            } 
+            counter.animate().translationY(</span><span class="s3">0f</span><span class="s1">).setDuration(</span><span class="s3">300</span><span class="s1">); 
+ 
+            </span><span class="s0">for</span><span class="s1">(</span><span class="s0">int </span><span class="s1">[] winningPosition : winningPositions){ 
+ 
+                </span><span class="s0">if </span><span class="s1">(gameState[winningPosition[</span><span class="s3">0</span><span class="s1">]] == gameState[winningPosition[</span><span class="s3">1</span><span class="s1">]] &amp;&amp; 
+                        gameState[winningPosition[</span><span class="s3">1</span><span class="s1">]]  == gameState[winningPosition[</span><span class="s3">2</span><span class="s1">]] &amp;&amp; 
+                            gameState[winningPosition[</span><span class="s3">0</span><span class="s1">]] != </span><span class="s3">2 </span><span class="s1">){ 
+                    active = </span><span class="s0">false</span><span class="s1">; 
+                    String winner = </span><span class="s4">&quot;Purple&quot;</span><span class="s1">; 
+                    </span><span class="s0">if</span><span class="s1">(gameState[winningPosition[</span><span class="s3">0</span><span class="s1">]] == </span><span class="s3">0</span><span class="s1">){ 
+                        winner = </span><span class="s4">&quot;Blue&quot;</span><span class="s1">; 
+                    } 
+                    TextView text = (TextView) findViewById(R.id.playAgain); 
+                    text.setText(</span><span class="s4">&quot;Congratulations  &quot;</span><span class="s1">+winner + </span><span class="s4">&quot;  has won!&quot;</span><span class="s1">); 
+                    LinearLayout layout = (LinearLayout) findViewById(R.id.playAgainLayout); 
+                    layout.setVisibility(view.VISIBLE); 
+ 
+                } </span><span class="s0">else </span><span class="s1">{ 
+                    </span><span class="s0">boolean </span><span class="s1">gameOver = </span><span class="s0">true</span><span class="s1">; 
+                    </span><span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">counterState : gameState ){ 
+                        </span><span class="s0">if </span><span class="s1">(counterState == </span><span class="s3">2</span><span class="s1">){ 
+                            gameOver = </span><span class="s0">false</span><span class="s1">; 
+                        } 
+                    } 
+ 
+                    </span><span class="s0">if </span><span class="s1">(gameOver == </span><span class="s0">true</span><span class="s1">){ 
+ 
+                        TextView text = (TextView) findViewById(R.id.playAgain); 
+                        text.setText(</span><span class="s4">&quot; Play Again It's a Tie!&quot;</span><span class="s1">); 
+                        LinearLayout layout = (LinearLayout) findViewById(R.id.playAgainLayout); 
+                        layout.setVisibility(view.VISIBLE); 
+                    } 
+ 
+                } 
+            } 
+        } 
+    } 
+    </span><span class="s0">public void </span><span class="s1">playAgain(View view){ 
+        active = </span><span class="s0">true</span><span class="s1">; 
+        LinearLayout layout = (LinearLayout) findViewById(R.id.playAgainLayout); 
+        layout.setVisibility(view.INVISIBLE); 
+        activePlayer = </span><span class="s3">0</span><span class="s1">; 
+ 
+        </span><span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s3">0 </span><span class="s1">; i &lt; gameState.length; i++){ 
+            gameState[i] =</span><span class="s3">2</span><span class="s1">; 
+        } 
+ 
+        GridLayout glayout = (GridLayout) findViewById(R.id.gridLayout); 
+        </span><span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s3">0 </span><span class="s1">; i &lt; glayout.getChildCount(); i++){ 
+            ((ImageView) glayout.getChildAt(i)).setImageResource(</span><span class="s3">0</span><span class="s1">); 
+        } 
+ 
+    } 
+ 
+ 
+ 
+    @Override 
+    </span><span class="s0">protected void </span><span class="s1">onCreate(Bundle savedInstanceState) { 
+        </span><span class="s0">super</span><span class="s1">.onCreate(savedInstanceState); 
+        setContentView(R.layout.activity_main); 
+    } 
+} 
+</span></pre>
+</body>
+</html>
